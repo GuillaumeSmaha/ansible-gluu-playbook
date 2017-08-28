@@ -7,4 +7,4 @@ This repository provides few examples of playbooks to deploy Gluu.
 Playbooks
 -------
 
-- [Signle node](./simple)
+- [Single node](./single)
