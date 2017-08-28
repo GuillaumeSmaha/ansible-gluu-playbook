@@ -1,0 +1,173 @@
+
+gluu_version: 3.0.2
+
+#=======================
+# Customization
+#=======================
+
+gluu_copy_pages:
+  oxauth:
+    - path: 'custom/oxauth/pages/login.xhtml'
+    - path: 'custom/oxauth/pages/login-template.xhtml'
+      dest: 'WEB-INF/incl/layout/login-template.xhtml'
+
+gluu_copy_resources:
+  oxauth:
+    - path: '{{ playbook_dir }}/templates/custom/oxauth/static/opensource-logo.png'
+      dest: 'img/opensource-logo.png'
+
+gluu_customize_wars:
+  oxauth:
+    - path: 'wars/oxauth/messages_fr.properties'
+      dest: 'WEB-INF/classes/messages_fr.properties'
+    - path: 'wars/oxauth/messages_en.properties'
+      dest: 'WEB-INF/classes/messages_en.properties'
+    - path: 'wars/oxauth/faces-config.xml'
+      dest: 'WEB-INF/faces-config.xml'
+
+
+#=======================
+# Configuration
+#=======================
+
+gluu_appliances:
+  gluuScimEnabled: 'enabled'
+
+gluu_oxtrust_json_operations:
+  oxTrustConfCacheRefresh:
+    - insertOrReplace:
+        path: '/ldapSearchSizeLimit'
+        value: 1000
+    - insertOrReplace:
+        path: '/sourceConfigs'
+        value:
+          - configId: LDAP sync
+            bindDN: uid=gluusync,ou=people,o=organization
+            # The LDAP password have to be crypted with the salt
+            bindPassword: "{{ 'test' | gluu_encrypt_password(secret=gluu_ldap_salt_password) }}"
+            servers:
+              - external.ldap.local:1636
+            baseDNs:
+              - o=organization
+            maxConnections: 3
+            useSSL: true
+            useAnonymousBind: false
+            enabled: true
+            level: 0
+            version: 0
+
+
+gluu_oxauth_json_operations:
+  oxAuthConfDynamic:
+    - insertOrReplace:
+        path: '/idTokenLifetime'
+        value: 1000
+
+
+gluu_attributes:
+  -
+    inum: '2213'
+    displayName: Last Connection Date
+    gluuAttributeName: oxLastLogonTime
+    gluuAttributeOrigin: gluuPerson
+    gluuAttributeType: generalizedTime
+    gluuAttributeViewType:
+      - user
+      - admin
+    gluuAttributeEditType:
+      - user
+    gluuStatus: active
+    oxAuthClaimName: lastConnectionAt
+    oxMultivaluedAttribute: false
+    oxSCIMCustomAttribute: false
+    gluuSAML1URI: urn:mace:dir:attribute-def:oxLastLogonTime
+    gluuSAML2URI: oxAttribute:210
+    description: Last Connection Date
+
+
+gluu_openid_connect_scopes:
+  -
+    displayName: openid
+    inum: 'F0C4'
+    oxAuthClaim: 
+      - '29DA'
+      - '2213'
+
+
+gluu_openid_connect_clients:
+  -
+    displayName: Admin Client
+    oxAuthClientSecret: admin
+    inum: '2212.0010'
+    oxAuthGrantType: implicit
+    oxAuthAppType: native
+    oxAuthResponseType:
+      - id_token
+      - token
+    oxAuthScope:
+      - '341A'
+      - '764C'
+      - 'F0C4'
+      - 'C4F5.F66C'
+      - '43F1'
+      - '6D98'
+      - '6D99'
+      - '10B2'
+    oxAuthTokenEndpointAuthMethod: client_secret_basic
+    oxAuthTrustedClient: true
+    oxAuthSubjectType: public
+    oxAuthLogoutSessionRequired: false
+    oxPersistClientAuthorizations: false
+
+
+gluu_groups:
+   -
+     inum: '0010'
+     displayName: Admin users
+     gluuGroupVisibility: private
+     gluuStatus: active
+     member:
+      - '0000.1111.0010'
+
+
+gluu_users:
+   -
+     inum: '0000.1111.0010'
+     uid: myUser
+     userPassword: test
+     displayName: My User
+     givenName: Guillaume
+     sn: Smaha
+     mail: gsmaha@mail.fr
+     gluuStatus: active
+     memberOf:
+      - '0010'
+
+
+gluu_scripts:
+  -
+    displayName: basic_lock
+    description: Basic Authentication with Lock
+    gluuStatus: 'false'
+    oxConfigurationProperty:
+      - '{"value1":"invalid_login_count_attribute","value2":"oxCountInvalidLogin","description":""}'
+      - '{"value1":"maximum_invalid_login_attemps","value2":"10","description":""}'
+  -
+    displayName: uma_authorization_policy
+    description: UMA Authorization Policy
+    gluuStatus: 'false'
+    oxConfigurationProperty:
+      - '{"value1":"allowed_clients","value2":"{{ gluu_inum_org }}!0008!2212.0010","description":""}'
+  -
+    inum: '2212.0010'
+    displayName: basic_multi_ldap_auth_lock
+    description: Basic Multiple LDAP Authentication with Lock
+    gluuStatus: 'false'
+    oxModuleProperty: 
+      - '{"value1":"location_type","value2":"ldap","description":""}'
+    oxConfigurationProperty: 
+      - '{"value1":"auth_configuration_file","value2":"/etc/gluu/conf/basic_multi_ldap_auth.json","description":""}'
+    oxLevel: 100
+    programmingLanguage: python
+    oxScriptType: person_authentication
+    oxScript: "{{ lookup('template', 'templates/scripts/PersonAuthentication/BasicMultipleLdapAuthWithLock.py') }}"

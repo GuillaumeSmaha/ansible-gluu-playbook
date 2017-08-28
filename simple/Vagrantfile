@@ -1,0 +1,27 @@
+Vagrant.configure("2") do |config|
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    config.hostmanager.manage_guest = true
+    config.hostmanager.ignore_private_ip = false
+    config.hostmanager.include_offline = true
+
+    config.vm.define 'gluu-single' do |config|
+        config.vm.hostname = 'gluu-single'
+
+        # config.vm.box = 'fgrehm/trusty64-lxc'
+        config.vm.box = 'developerinlondon/ubuntu_lxc_xenial_x64'
+        config.vm.hostname = 'gluu-single'
+        config.vm.provision "shell", inline: <<-SHELL
+            sudo apt-get update
+            sudo apt-get -y install python apt-transport-https
+        SHELL
+
+        config.vm.provider "libvirt" do |v|
+            v.memory = 1024
+            v.driver = "qemu"
+        end
+        config.vm.provider "virtualbox" do |v|
+            v.memory = 1024
+        end
+    end
+end
