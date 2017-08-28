@@ -1,0 +1,7 @@
+
+gluu_modules:
+  - oxauth
+  - httpd
+  - jce
+
+gluu_install_from: gluu-main

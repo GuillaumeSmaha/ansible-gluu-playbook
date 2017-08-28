@@ -1,0 +1,143 @@
+Vagrant.configure("2") do |config|
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    config.hostmanager.manage_guest = true
+    config.hostmanager.ignore_private_ip = false
+    config.hostmanager.include_offline = true
+    
+    config.vm.define 'gluu-main' do |config|
+
+        # config.vm.box = 'fgrehm/trusty64-lxc'
+        config.vm.box = 'developerinlondon/ubuntu_lxc_xenial_x64'
+        config.vm.hostname = 'gluu-main'
+        config.vm.provision "shell", inline: <<-SHELL
+            sudo apt-get update
+            sudo apt-get -y install python apt-transport-https
+        SHELL
+
+        config.vm.provider "libvirt" do |v|
+            v.memory = 1024
+            v.driver = "qemu"
+        end
+        config.vm.provider "virtualbox" do |v|
+            v.memory = 1024
+        end
+    end
+    
+        
+    config.vm.define 'gluu-consumer' do |config|
+
+        # config.vm.box = 'fgrehm/trusty64-lxc'
+        config.vm.box = 'developerinlondon/ubuntu_lxc_xenial_x64'
+        config.vm.hostname = 'gluu-consumer'
+        config.vm.provision "shell", inline: <<-SHELL
+            sudo apt-get update
+            sudo apt-get -y install python apt-transport-https
+        SHELL
+
+        config.vm.provider "libvirt" do |v|
+            v.memory = 1024
+            v.driver = "qemu"
+        end
+        config.vm.provider "virtualbox" do |v|
+            v.memory = 1024
+        end
+    end
+
+    
+    config.vm.define 'gluu-nginx' do |config|
+
+        # config.vm.box = 'fgrehm/trusty64-lxc'
+        config.vm.box = 'developerinlondon/ubuntu_lxc_xenial_x64'
+        config.vm.hostname = 'gluu-nginx'
+        config.vm.provision "shell", inline: <<-SHELL
+            sudo apt-get update
+            sudo apt-get -y install python apt-transport-https nginx
+            mkdir -p /etc/gluu
+            if [ ! -f "/etc/gluu/gluu-nginx.key" ]; then
+                echo "[req]
+                default_bits = 2048
+                prompt = no
+                default_md = sha256
+                req_extensions = req_ext
+                distinguished_name = dn
+
+                [ dn ]
+                C=CA
+                ST=Quebec
+                L=Montreal
+                O=Test
+                emailAddress=gluu@test
+                CN = gluu-nginx
+
+                [ req_ext ]
+                subjectAltName = @alt_names
+
+                [ alt_names ]
+                DNS.1 = gluu-nginx" > /etc/gluu/config.txt
+                openssl genrsa -out /etc/gluu/gluu-nginx.key 2048
+                openssl req -new -out /etc/gluu/gluu-nginx.csr -key /etc/gluu/gluu-nginx.key -config /etc/gluu/config.txt
+                openssl x509 -req -days 3650 -in /etc/gluu/gluu-nginx.csr -signkey /etc/gluu/gluu-nginx.key -out /etc/gluu/gluu-nginx.crt -extfile /etc/gluu/config.txt
+            fi
+            echo "
+            
+            upstream gluu_oxtrust {
+                ip_hash;
+                server gluu-main:443;
+            }
+            
+            upstream gluu_oxauth {
+                ip_hash;
+                server gluu-consumer:443;
+            }
+            
+            server {
+                listen 80;
+                listen [::]:80;
+              
+                server_name gluu-nginx;
+              
+                return 301 https://gluu-nginx$request_uri;
+              }
+              
+              server {
+                listen [::]:443 ssl http2;
+                listen 443 ssl http2;
+                server_name gluu-nginx;
+                
+                ssl on;
+                ssl_certificate     /etc/gluu/gluu-nginx.crt;
+                ssl_certificate_key /etc/gluu/gluu-nginx.key;
+              
+              
+                location ~ ^(/)$ {
+                  proxy_pass https://gluu_oxtrust;
+                }
+              
+                location /identity/ {
+                  proxy_pass https://gluu_oxtrust;
+                }
+              
+                location /oxauth/ {
+                  proxy_pass https://gluu_oxauth;
+                }
+              
+                location /.well-known/ {
+                  proxy_pass https://gluu_oxauth;
+                }
+              
+              }" > /etc/nginx/sites-available/gluu-load-balancer
+              rm -f /etc/nginx/sites-enabled/gluu-load-balancer
+              ln -s /etc/nginx/sites-available/gluu-load-balancer /etc/nginx/sites-enabled/gluu-load-balancer
+              service nginx restart
+        SHELL
+
+        config.vm.provider "libvirt" do |v|
+            v.memory = 1024
+            v.driver = "qemu"
+        end
+        config.vm.provider "virtualbox" do |v|
+            v.memory = 1024
+        end
+    end
+end
