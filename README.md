@@ -4,7 +4,7 @@ Ansible Gluu Playbooks
 This repository provides few examples of playbooks to deploy Gluu.
 
 
-These examples uses the following roles:
+These examples use the following roles:
 
 - https://github.com/GuillaumeSmaha/ansible-role-gluu-cluster-manager
 - https://github.com/GuillaumeSmaha/ansible-role-gluu-setup
@@ -16,4 +16,4 @@ These examples uses the following roles:
 Playbooks
 -------
 
-- [Signle node](./simple)
+- [Single node](./single)
