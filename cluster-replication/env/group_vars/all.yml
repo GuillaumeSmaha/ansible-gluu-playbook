@@ -1,0 +1,12 @@
+
+gluu_version: 3.0.2
+
+gluu_hostname: gluu-nginx
+
+gluu_cluster: True
+
+gluu_cluster_ldap_replication: False
+
+gluu_inum_base: '@!1111.2222.3333.4444'
+gluu_inum_org: '{{ gluu_inum_base }}!0001!5555.6666'
+gluu_inum_appliance: '{{ gluu_inum_base }}!0002!AAAA.BBBB'

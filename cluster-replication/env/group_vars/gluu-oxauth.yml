@@ -1,0 +1,24 @@
+
+#=======================
+# Customization for oxAuth
+#=======================
+
+gluu_copy_pages:
+  oxauth:
+    - path: 'custom/oxauth/pages/login.xhtml'
+    - path: 'custom/oxauth/pages/login-template.xhtml'
+      dest: 'WEB-INF/incl/layout/login-template.xhtml'
+
+gluu_copy_resources:
+  oxauth:
+    - path: '{{ playbook_dir }}/templates/custom/oxauth/static/opensource-logo.png'
+      dest: 'img/opensource-logo.png'
+
+gluu_customize_wars:
+  oxauth:
+    - path: 'wars/oxauth/messages_fr.properties'
+      dest: 'WEB-INF/classes/messages_fr.properties'
+    - path: 'wars/oxauth/messages_en.properties'
+      dest: 'WEB-INF/classes/messages_en.properties'
+    - path: 'wars/oxauth/faces-config.xml'
+      dest: 'WEB-INF/faces-config.xml'

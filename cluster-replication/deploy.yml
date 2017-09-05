@@ -1,0 +1,23 @@
+- hosts: gluu-servers
+  become: true
+  become_user: root
+  become_method: sudo
+  serial: 1
+  roles:
+    - GuillaumeSmaha.gluu-setup
+
+- hosts: gluu-oxauth
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - GuillaumeSmaha.gluu-setup
+    - GuillaumeSmaha.gluu-customization
+    - GuillaumeSmaha.gluu-configuration
+
+- hosts: gluu-configuration
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - GuillaumeSmaha.gluu-configuration

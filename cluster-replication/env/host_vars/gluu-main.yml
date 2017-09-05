@@ -1,0 +1,3 @@
+
+#gluu_internal_hostname: gluu-main
+gluu_internal_hostname: "{{ ansible_default_ipv4.address }}"
