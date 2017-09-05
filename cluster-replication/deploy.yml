@@ -1,5 +1,14 @@
 - hosts: gluu-servers
   become: true
+  gather_facts: true
+  become_user: root
+  become_method: sudo
+  tasks:
+    - debug:
+        msg: "Get IP address: {{ ansible_default_ipv4.address }}"
+
+- hosts: gluu-servers
+  become: true
   become_user: root
   become_method: sudo
   serial: 1
