@@ -1,0 +1,9 @@
+
+
+gluu_modules:
+  - oxtrust
+  - oxauth
+  - ldap
+  - httpd
+  - jce
+
