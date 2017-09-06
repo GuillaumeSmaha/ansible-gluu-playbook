@@ -20,9 +20,7 @@
   become_user: root
   become_method: sudo
   roles:
-    - GuillaumeSmaha.gluu-setup
     - GuillaumeSmaha.gluu-customization
-    - GuillaumeSmaha.gluu-configuration
 
 - hosts: gluu-configuration
   become: true
