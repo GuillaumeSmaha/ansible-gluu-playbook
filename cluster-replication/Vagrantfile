@@ -126,6 +126,7 @@ Vagrant.configure("2") do |config|
               rm -f /etc/nginx/sites-enabled/gluu-load-balancer
               ln -s /etc/nginx/sites-available/gluu-load-balancer /etc/nginx/sites-enabled/gluu-load-balancer
               service nginx restart
+              echo "Nginx restarted"
         SHELL
 
         config.vm.provider "libvirt" do |v|
