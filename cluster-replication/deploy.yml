@@ -1,3 +1,5 @@
+
+# Get all servers IP
 - hosts: gluu-servers
   become: true
   gather_facts: true
@@ -7,6 +9,16 @@
     - debug:
         msg: "Get IP address: {{ ansible_default_ipv4.address }}"
 
+# Install the main LDAP server and configure it directly else we have to wait the end of replication
+- hosts: gluu-configuration
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - GuillaumeSmaha.gluu-setup
+    - GuillaumeSmaha.gluu-configuration
+
+# Install others servers
 - hosts: gluu-servers
   become: true
   become_user: root
@@ -21,10 +33,3 @@
   become_method: sudo
   roles:
     - GuillaumeSmaha.gluu-customization
-
-- hosts: gluu-configuration
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
-    - GuillaumeSmaha.gluu-configuration
