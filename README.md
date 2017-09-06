@@ -18,3 +18,4 @@ Playbooks
 
 - [Single node](./single)
 - [Cluster with one main node and few consumers](./cluster-simple)
+- [Cluster with two main servers and LDAP replication](./cluster-replication)

@@ -82,7 +82,7 @@ Vagrant.configure("2") do |config|
             echo "
             
             upstream gluu_oxtrust {
-                ip_hash;
+                #ip_hash;
                 server gluu-main:443;
                 server gluu-mirror:443;
             }
