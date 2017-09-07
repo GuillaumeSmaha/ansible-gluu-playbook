@@ -1,4 +1,4 @@
-Ansible Gluu Playbooks: Signle node
+Ansible Gluu Playbooks: Cluster with two main servers and LDAP replication
 ==========
 
 This example deploy Gluu on 2 servers and a load balancer to dispatch requests.
@@ -23,8 +23,8 @@ $ vagrant up --provider=lxc --provision
 
 Access to Gluu by going to:
 
-https://gluu-single/
+https://gluu-nginx/
 
 Exemple with implicit flow:
 
-https://gluu-single/oxauth/authorize?....
+https://gluu-nginx/oxauth/authorize?....

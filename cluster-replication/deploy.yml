@@ -27,6 +27,7 @@
   roles:
     - GuillaumeSmaha.gluu-setup
 
+# Customize servers with oxauth
 - hosts: gluu-oxauth
   become: true
   become_user: root

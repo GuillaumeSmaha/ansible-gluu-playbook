@@ -1,4 +1,4 @@
-Ansible Gluu Playbooks: Signle node
+Ansible Gluu Playbooks: Single node
 ==========
 
 This example deploy Gluu on a single node.
