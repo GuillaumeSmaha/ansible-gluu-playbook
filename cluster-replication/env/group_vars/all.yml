@@ -5,7 +5,9 @@ gluu_hostname: gluu-nginx
 
 gluu_cluster: True
 
-gluu_cluster_ldap_replication: False
+gluu_cluster_ldap_replication: True
+
+gluu_cluster_ldap_replication_without_cluster_manager: True
 
 gluu_inum_base: '@!1111.2222.3333.4444'
 gluu_inum_org: '{{ gluu_inum_base }}!0001!5555.6666'
