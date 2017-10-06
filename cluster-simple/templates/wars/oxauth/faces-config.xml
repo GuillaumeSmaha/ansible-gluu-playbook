@@ -6,9 +6,25 @@
     <application>
         <locale-config>
             <default-locale>fr</default-locale>
-            <supported-locale>fr</supported-locale>
             <supported-locale>en</supported-locale>
+            <supported-locale>bg</supported-locale>
+            <supported-locale>de</supported-locale>
+            <supported-locale>es</supported-locale>
+            <supported-locale>fr</supported-locale>
+            <supported-locale>it</supported-locale>
+            <supported-locale>tr</supported-locale>
         </locale-config>
+
+        <resource-bundle>
+            <base-name>messages</base-name>
+            <var>msgs</var>
+        </resource-bundle>
     </application>
+    <factory>
+        <exception-handler-factory>
+            org.xdi.oxauth.exception.GlobalExceptionHandlerFactory
+        </exception-handler-factory>
+    </factory>
+
 
 </faces-config>

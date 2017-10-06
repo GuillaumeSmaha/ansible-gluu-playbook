@@ -128,8 +128,8 @@ gluu_scripts:
       - '{"value1":"invalid_login_count_attribute","value2":"oxCountInvalidLogin","description":""}'
       - '{"value1":"maximum_invalid_login_attemps","value2":"10","description":""}'
   -
-    displayName: uma_authorization_policy
-    description: UMA Authorization Policy
+    displayName: uma_rpt_policy
+    description: UMA RPT Policy
     gluuStatus: 'false'
     oxConfigurationProperty:
       - '{"value1":"allowed_clients","value2":"{{ gluu_inum_org }}!0008!2212.0010","description":""}'
