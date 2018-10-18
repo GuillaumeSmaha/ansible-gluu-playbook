@@ -1,3 +1,4 @@
 
 # gluu_internal_hostname: gluu-consumer
-gluu_internal_hostname: "{{ ansible_default_ipv4.address }}"
+# gluu_internal_hostname: "{{ ansible_default_ipv4.address }}"
+gluu_internal_hostname: 172.32.129.103

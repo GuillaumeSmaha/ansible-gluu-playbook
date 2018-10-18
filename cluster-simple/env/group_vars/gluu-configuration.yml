@@ -146,3 +146,6 @@ gluu_scripts:
     programmingLanguage: python
     oxScriptType: person_authentication
     oxScript: "{{ lookup('template', 'templates/scripts/PersonAuthentication/BasicMultipleLdapAuthWithLock.py') }}"
+  # - inum: 'CB5B.3211'
+  #   description: Permission Dynamic Scope script
+  #   gluuStatus: 'true'

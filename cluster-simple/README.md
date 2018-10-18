@@ -10,15 +10,14 @@ Vagrant Installation
 
 ```
 $ cd example
-$ vagrant plugin install vagrant-lxc
 $ vagrant plugin install vagrant-hostmanager
 $ # Here, provision for gluu-nginx will fail due to the missing upstream server
-$ vagrant up --provider=lxc
+$ vagrant up
 $ ansible-galaxy install GuillaumeSmaha.gluu-setup GuillaumeSmaha.gluu-configuration GuillaumeSmaha.gluu-customization
 $ ansible-playbook -i env deploy.yml
 $ # Restart servers
 $ vagrant halt
-$ vagrant up --provider=lxc --provision
+$ vagrant up --provision
 ```
 
 Access to Gluu by going to:

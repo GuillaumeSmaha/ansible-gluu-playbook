@@ -1,5 +1,6 @@
 
 # gluu_internal_hostname: gluu-mirror
-gluu_internal_hostname: "{{ ansible_default_ipv4.address }}"
+# gluu_internal_hostname: "{{ ansible_default_ipv4.address }}"
+gluu_internal_hostname: 172.32.130.103
 
 gluu_install_from: gluu-main

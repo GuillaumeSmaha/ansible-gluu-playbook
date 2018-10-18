@@ -1,9 +1,9 @@
 
 
 gluu_modules:
+  # oxTrust doesn't work without oxAuth module but it should be.
   - oxtrust
   - oxauth
   - ldap
   - httpd
   - jce
-

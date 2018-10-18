@@ -1,16 +1,16 @@
 [gluu-servers]
-gluu-main ansible_user=vagrant ansible_port=22 ansible_host=gluu-main ansible_ssh_private_key_file=.vagrant/machines/gluu-main/lxc/private_key
-gluu-consumer ansible_user=vagrant ansible_port=22 ansible_host=gluu-consumer ansible_ssh_private_key_file=.vagrant/machines/gluu-consumer/lxc/private_key
+gluu-main ansible_user=vagrant ansible_port=22 ansible_host=gluu-main ansible_ssh_private_key_file=.vagrant/machines/gluu-main/virtualbox/private_key
+gluu-consumer ansible_user=vagrant ansible_port=22 ansible_host=gluu-consumer ansible_ssh_private_key_file=.vagrant/machines/gluu-consumer/virtualbox/private_key
 
 [gluu-configuration]
-gluu-main ansible_user=vagrant ansible_port=22 ansible_host=gluu-main ansible_ssh_private_key_file=.vagrant/machines/gluu-main/lxc/private_key
+gluu-main ansible_user=vagrant ansible_port=22 ansible_host=gluu-main ansible_ssh_private_key_file=.vagrant/machines/gluu-main/virtualbox/private_key
 
 [gluu-oxtrust]
-gluu-main ansible_user=vagrant ansible_port=22 ansible_host=gluu-main ansible_ssh_private_key_file=.vagrant/machines/gluu-main/lxc/private_key
+gluu-main ansible_user=vagrant ansible_port=22 ansible_host=gluu-main ansible_ssh_private_key_file=.vagrant/machines/gluu-main/virtualbox/private_key
 
 [gluu-consumers]
-gluu-consumer ansible_user=vagrant ansible_port=22 ansible_host=gluu-consumer ansible_ssh_private_key_file=.vagrant/machines/gluu-consumer/lxc/private_key
+gluu-consumer ansible_user=vagrant ansible_port=22 ansible_host=gluu-consumer ansible_ssh_private_key_file=.vagrant/machines/gluu-consumer/virtualbox/private_key
 
 [gluu-oxauth]
-gluu-main ansible_user=vagrant ansible_port=22 ansible_host=gluu-main ansible_ssh_private_key_file=.vagrant/machines/gluu-main/lxc/private_key
-gluu-consumer ansible_user=vagrant ansible_port=22 ansible_host=gluu-consumer ansible_ssh_private_key_file=.vagrant/machines/gluu-consumer/lxc/private_key
+gluu-main ansible_user=vagrant ansible_port=22 ansible_host=gluu-main ansible_ssh_private_key_file=.vagrant/machines/gluu-main/virtualbox/private_key
+gluu-consumer ansible_user=vagrant ansible_port=22 ansible_host=gluu-consumer ansible_ssh_private_key_file=.vagrant/machines/gluu-consumer/virtualbox/private_key

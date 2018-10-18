@@ -1,5 +1,5 @@
 
-gluu_version: 3.1.0
+gluu_version: 3.1.4
 
 gluu_hostname: gluu-nginx
 
@@ -10,3 +10,8 @@ gluu_cluster_ldap_replication: False
 gluu_inum_base: '@!1111.2222.3333.4444'
 gluu_inum_org: '{{ gluu_inum_base }}!0001!5555.6666'
 gluu_inum_appliance: '{{ gluu_inum_base }}!0002!AAAA.BBBB'
+
+gluu_ldap_certificate:
+  cert_ca_file: "{{ playbook_dir }}/templates/certificates/openldap_root_ca.crt"
+  cert_file: "{{ playbook_dir }}/templates/certificates/openldap.crt"
+  cert_key_file: "{{ playbook_dir }}/templates/certificates/openldap.key"
